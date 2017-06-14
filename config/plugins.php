@@ -1,0 +1,30 @@
+<?php
+
+return [
+    'font_awesome_version'          =>          "4.7",
+    'jquery_version'                =>          "3.1.1",
+    'jqueryui_version'              =>          "1.12.1",
+    'bootstrap_version'             =>          "3.3.7",
+    'datatables_version'            =>          "3.3.7",
+    'adminlte_version'              =>          "2.3.11",
+    'html5shiv_version'             =>          "3.7.3",
+    'respond_version'               =>          "1.4.2",
+    'slimscroll_version'            =>          "1.3.8",
+    'fastclick_version'             =>          "unknown",
+    'bootstrap-dialog_version'      =>          "unknown",
+    'timeago_version'               =>          "1.5.4",
+    'moment_version'                =>          "2.17.1",
+    'livestamp_version'             =>          "1.1.2",
+    'ionicons_version'              =>          "2.0.1",
+    'sBubble_version'               =>          "0.1.1",
+    'blockUI_version'               =>          "2.70.0",
+    'AwesomeBootstrapCheckbox'      =>          "NA",
+    'prefixfree_version'            =>          "1.0.3",
+    'jquery_validation_version'     =>          "1.16",
+    'bootstrap-checkbox'            =>          "1.4.0",
+    'summernote_version'            =>          "0.8.2",
+    'chartist_version'              =>          "0.10",
+    'noty_version'                  =>          "2.4.1",
+    'pace_version'                  =>          "1.0.0",
+    'chosen_version'                =>          "1.6.2"
+];
