@@ -1,0 +1,25 @@
+<p>
+    En ocaciones puede ser necesario que un módulo tenga presencia en todas las páginas de la aplicación, así como sus recursos. Esto por ejemplo para el caso de tener un módulo que presenta un <i>Modal Window</i> proveniente del menú superior.
+</p>
+<p>
+    Para este caso, la clase <i><strong>DModule</strong></i> permite establecer ciertos <i>assets / recursos</i> como globales. Estos recursos serán insertados justo después de los recursos princpiales de la página, y en orden de importancia de los módulos, como se establece en el sistema de orden de módulos.
+</p>
+<p>
+    Para realizar esto, se puede convocar a las siguientes funciones:
+</p>
+<p>
+    <code>
+$this -> setGlobalCSS(  ["css/bootstrap-dialog.css","css/global.css"]  );<br />
+$this -> setGlobalJS(   ["js/bootstrap-dialog.js","js/global.js"]   );
+    </code>
+    <br />
+    Estas funciones deben ser llamadas en la sección <i>Start()</i> del módulo.
+</p>
+<p>
+    Con esto, el sistema incluirá estos recursos en los CSS y JS del sitio independientemente de la página donde se encuentre.
+</p>
+<p>
+    <blockquote>
+        Estos assets están sujetos al cache del sitio. Si se realizan cambios en los assets, será necesario realizar una limpieza de caché para que estos sean cargados.
+    </blockquote>
+</p>

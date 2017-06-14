@@ -1,0 +1,6 @@
+{
+  "name"    :   "clickcounter",
+  "label"   :   "Click Counter",
+  "description"   :   "Un modulo simple para contar la cantidad de clics",
+  "version" :   1.2
+}

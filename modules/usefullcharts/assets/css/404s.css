@@ -1,0 +1,13 @@
+.adjust-chart-size{
+    height:75vh;
+    width: 100%;
+}
+
+.adjust-chart-size span{
+    font-size:14px;
+    font-weight:bold;
+}
+
+.adjust-chart-size span.ct-label.ct-horizontal{
+
+}

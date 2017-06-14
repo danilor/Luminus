@@ -1,0 +1,13 @@
+{
+  "name"        :   "globalex",
+  "label"       :   "Globalex",
+  "description" :   "Software Jurídico de Costa Rica",
+  "version"     :   1,
+  "widgets"     : [
+    {
+      "name"        :   "showfacebook",
+      "label"       :   "Globalex - Widget de Facebook",
+      "description" :   "Muestra las últimas noticias de facebook relacionadas con Globalex"
+    }
+  ]
+}

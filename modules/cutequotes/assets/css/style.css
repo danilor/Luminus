@@ -1,0 +1,32 @@
+.quotation{
+    border: dashed 1px black;
+    margin-top:10px;
+    margin-bottom: 10px;
+    padding:5px;
+
+}
+.quotation p img{
+    margin:5px;
+}
+.quotes_plugin_table thead tr th{
+    text-align:center;
+}
+.quotation .quotation_options{
+    position: absolute;
+    top: 9px;
+    right: 17px;
+}
+.navigation li{
+    list-style: none;
+}
+
+.navigation li:before{
+    content: "\f10c \00a0";
+    font-family: "FontAwesome";
+}
+
+.navigation li:hover:before{
+    content: "\f111 \00a0";
+    font-family: "FontAwesome";
+}
+

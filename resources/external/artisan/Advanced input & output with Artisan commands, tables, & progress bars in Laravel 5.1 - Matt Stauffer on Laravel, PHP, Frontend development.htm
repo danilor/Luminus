@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="no-js"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Advanced input &amp; output with Artisan commands, 
+tables, &amp; progress bars in Laravel 5.1 - Matt Stauffer on Laravel, 
+PHP, Frontend development</title>
+
+        <link rel="home" href="https://mattstauffer.co/">
+
+		<link href="https://mattstauffer.co/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Mattstauffer.co Atom Feed">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="mobile-web-app-capable" content="yes">
+
+		<meta property="og:site_name" content="MattStauffer.co">
+						
+		<meta property="og:title" content="Advanced input &amp; output with Artisan commands, tables, &amp; progress bars in Laravel 5.1">
+		<meta property="og:locale" content="en_US">
+
+        				<link rel="author" href="https://plus.google.com/+MattStauffer1337">
+		<meta name="description" content="Yesterday we talked about the new signature syntax for Artisan commands.   Today, let's take a look at the options Artisan commands...">
+	<meta property="og:description" content="Yesterday we talked about the new signature syntax for Artisan commands.   Today, let's take a look at the options Artisan commands present for input and output. Most of this is review; to get to what's new in 5.1, go to advanced output.     Note: Artisan commands build on top of the Symfony Console Component, so if you really want to geek out, you can go learn more there.     As a quick reminder, here's what a signature definition looks like in a 5.1 command object:   protected $signature = 'command:name     {argument}     {optionalArgument?}     {argumentWithDefault=default}     {--booleanOption}     {--optionWithValue=}     {--optionWithValueAndDefault=default} ';   Here are the methods that you can use within your command's handle() method to get and display data:   Basic input #   $this-&amp;gt;argument('argumentName') #   The argument method allows you to get the value of an argument you defined in your parameter list.   So, if your signature definition is do:thing {awesome} and the user runs php artisan do:thing fantastic, $this-&amp;gt;argument('awesome') will return fantastic.   Note that, if you're accessing an argument that's not required, and you haven't set a default, and the user doesn't fill anything out, this will come back as null.   $this-&amp;gt;option('optionName') #   Just like the argument method, the option method gets the value of an option.   If the option is defined as a boolean option (--queued, --doItAwesomely), this will return as true if passed or false if not.   So, if your signature definition is go {--boldly} and the user runs php artisan go --boldy, $this-&amp;gt;option('boldly') will return true.   $this-&amp;gt;argument() and $this-&amp;gt;option() #   If you don't pass parameters to the argument and option methods, they'll each return an array of all of their defined parameters and their values.   So, if your route definition is jump:on {thing1} {thing2} and your user runs php artisan jump:on rock boulder, $this-&amp;gt;argument() will return this array:   [     'command': 'jump:on',     'thing1': 'rock',     'thing2': 'boulder' ]   Same thing for options.   Basic output #   When you're writing your handle() method, it's common to want to send output to the end user. There are quite a few options for this.   All four of the simple output methods ($this-&amp;gt;info(), $this-&amp;gt;comment(), $this-&amp;gt;question(), and $this-&amp;gt;error()) allow you to pass any string to the user, as a notification:   $this-&amp;gt;info('Finished syncing data');   Check out all the colors:      Advanced input #   What if you want to write a script that allows you to have various stages of information retrieval from the user? Or conditional information retrieval depending on previous responses, or depending on part of the operations of the command?   $this-&amp;gt;ask() #   Throw a question out to the user and get their response:   public function handle() {     $name = $this-&amp;gt;ask('What is your name?');      $this-&amp;gt;info(&quot;Hello, $name&quot;); }      $this-&amp;gt;secret()...">
+
+
+        <link rel="stylesheet" href="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/journal.css">
+        <link rel="stylesheet" href="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/prism.css">
+        <link rel="stylesheet" href="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/main.css">
+    <script type="text/javascript" charset="utf-8" async="" src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/button.js"></script></head>
+    <body>
+                        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="https://mattstauffer.co/">MattStauffer.co</a>
+                </div>
+
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                    <li><a href="https://mattstauffer.co/blog" class="active">Blog</a></li>
+                    <li><a href="https://mattstauffer.co/laravel-up-and-running">The Book</a></li>
+                    <li><a href="https://mattstauffer.co/talks">Talks</a></li>
+                    <li><a href="https://mattstauffer.co/podcasts">Podcasts</a></li>
+                    <li><a href="https://mattstauffer.co/newsletter">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 article">
+	<article>
+		<h1>Advanced input &amp; output with Artisan commands, tables, &amp; progress bars in Laravel 5.1</h1>
+		<p class="article-metadata">Posted on June 11, 2015 | By Matt Stauffer</p>
+        
+                <blockquote class="series-list">
+            <p>(This is part of a series of posts on <a href="https://mattstauffer.co/blog/series/new-features-in-laravel-5.1">New Features in Laravel 5.1</a>.)</p>
+            <ol>
+                                
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/broadcasting-events-with-pusher-socket-in-laravel-5.1">Broadcasting events with Pusher.com &amp; Socket.io in Laravel 5.1</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/injecting-an-object-from-the-ioc-using-laravel-blade-service-injection">Injecting an object (from the IOC) using Laravel Blade Service Injection</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/passing-parameters-to-middleware-in-laravel-5.1">Passing parameters to Middleware in Laravel 5.1</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/creating-artisan-commands-with-the-new-simpler-syntax-in-laravel-5.1">Creating Artisan commands with the new, simpler syntax in Laravel 5.1</a>
+                                                                        </li>
+                                    <li>
+                                                    <strong>                            <a href="https://mattstauffer.co/blog/advanced-input-output-with-artisan-commands-tables-and-progress-bars-in-laravel-5.1">Advanced input &amp; output with Artisan commands, tables, &amp; progress bars in Laravel 5.1</a>
+                            </strong>                                            </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/better-integration-testing-in-laravel-5.1-powerful-integration-tests-in-a-few-lines">Better Integration Testing in Laravel 5.1: Powerful Integration Tests in A Few Lines</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/better-integration-testing-in-laravel-5.1-model-factories">Better Integration Testing in Laravel 5.1: Model Factories</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/better-integration-testing-in-laravel-5.1-databasemigrations-databasetransactions-and-withoutmiddleware">Better Integration Testing in Laravel 5.1: DatabaseMigrations, DatabaseTransactions, and WithoutMiddleware</a>
+                                                                        </li>
+                                    <li>
+                                                    Improvements to Elixir in Laravel 5.1 (coming soon)
+                                            </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/excluding-routes-from-the-csrf-middleware-in-laravel-5.1">Excluding Routes from the CSRF Middleware in Laravel 5.1</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/login-throttling-in-laravel-5.1">Login Throttling in Laravel 5.1</a>
+                                                                        </li>
+                                    <li>
+                                                                                <a href="https://mattstauffer.co/blog/acl-access-control-list-authorization-in-laravel-5-1">ACL (Access Control List) Authorization in Laravel 5.1</a>
+                                                                        </li>
+                            </ol>
+        </blockquote>
+
+        
+        <p>Yesterday <a href="https://mattstauffer.co/blog/creating-artisan-commands-with-the-new-simpler-syntax-in-laravel-5.1">we talked about the new signature syntax for Artisan commands</a>.</p>
+<p>Today, let's take a look at the options Artisan commands present for 
+input and output. Most of this is review; to get to what's new in 5.1, 
+go to <a href="#advanced-output">advanced output</a>.</p>
+<blockquote>
+<p>Note: Artisan commands build on top of the <a href="http://symfony.com/doc/current/components/console/introduction.html">Symfony Console Component</a>, so if you really want to geek out, you can go learn more there.</p>
+</blockquote>
+<p>As a quick reminder, here's what a signature definition looks like in a 5.1 command object:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">protected</span> <span class="token variable">$signature</span> <span class="token operator">=</span> 'command<span class="token punctuation">:</span>name
+    <span class="token punctuation">{</span>argument<span class="token punctuation">}</span>
+    <span class="token punctuation">{</span>optionalArgument<span class="token operator">?</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span>argumentWithDefault<span class="token operator">=</span><span class="token keyword">default</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token operator">--</span>booleanOption<span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token operator">--</span>optionWithValue<span class="token operator">=</span><span class="token punctuation">}</span>
+    <span class="token punctuation">{</span><span class="token operator">--</span>optionWithValueAndDefault<span class="token operator">=</span><span class="token keyword">default</span><span class="token punctuation">}</span>
+'<span class="token punctuation">;</span></code></pre>
+<p>Here are the methods that you can use within your command's <code class=" language-markup">handle()</code> method to get and display data:</p>
+<h2 id="basic-input">Basic input <a class="anchor" href="#basic-input" title="Basic input">#</a></h2>
+<h3 id="this--gt-argumentargumentname"><code class=" language-markup">$this-&gt;argument('argumentName')</code> <a class="anchor" href="#this--gt-argumentargumentname" title="$this-&gt;argument('argumentName')">#</a></h3>
+<p>The argument method allows you to get the value of an argument you defined in your parameter list.</p>
+<p>So, if your signature definition is <code class=" language-markup">do:thing {awesome}</code> and the user runs <code class=" language-markup">php artisan do:thing fantastic</code>, <code class=" language-markup">$this-&gt;argument('awesome')</code> will return <code class=" language-markup">fantastic</code>.</p>
+<p>Note that, if you're accessing an argument that's not required, and you haven't set a default, <em>and</em> the user doesn't fill anything out, this will come back as <code class=" language-markup">null</code>.</p>
+<h3 id="this--gt-optionoptionname"><code class=" language-markup">$this-&gt;option('optionName')</code> <a class="anchor" href="#this--gt-optionoptionname" title="$this-&gt;option('optionName')">#</a></h3>
+<p>Just like the argument method, the option method gets the value of an option.</p>
+<p>If the option is defined as a boolean option (<code class=" language-markup">--queued</code>, <code class=" language-markup">--doItAwesomely</code>), this will return as <code class=" language-markup">true</code> if passed or <code class=" language-markup">false</code> if not.</p>
+<p>So, if your signature definition is <code class=" language-markup">go {--boldly}</code> and the user runs <code class=" language-markup">php artisan go --boldy</code>, <code class=" language-markup">$this-&gt;option('boldly')</code> will return true.</p>
+<h3 id="this--gt-argument-and-this--gt-option"><code class=" language-markup">$this-&gt;argument()</code> and <code class=" language-markup">$this-&gt;option()</code> <a class="anchor" href="#this--gt-argument-and-this--gt-option" title="$this-&gt;argument() and $this-&gt;option()">#</a></h3>
+<p>If you don't pass parameters to the argument and option methods, 
+they'll each return an array of all of their defined parameters and 
+their values.</p>
+<p>So, if your route definition is <code class=" language-markup">jump:on {thing1} {thing2}</code> and your user runs <code class=" language-markup">php artisan jump:on rock boulder</code>, <code class=" language-markup">$this-&gt;argument()</code> will return this array:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token punctuation">[</span>
+    <span class="token string">'command'</span><span class="token punctuation">:</span> <span class="token string">'jump:on'</span><span class="token punctuation">,</span>
+    <span class="token string">'thing1'</span><span class="token punctuation">:</span> <span class="token string">'rock'</span><span class="token punctuation">,</span>
+    <span class="token string">'thing2'</span><span class="token punctuation">:</span> <span class="token string">'boulder'</span>
+<span class="token punctuation">]</span></code></pre>
+<p>Same thing for options.</p>
+<h2 id="basic-output">Basic output <a class="anchor" href="#basic-output" title="Basic output">#</a></h2>
+<p>When you're writing your <code class=" language-markup">handle()</code> method, it's common to want to send output to the end user. There are quite a few options for this.</p>
+<p>All four of the simple output methods (<code class=" language-markup">$this-&gt;info()</code>, <code class=" language-markup">$this-&gt;comment()</code>, <code class=" language-markup">$this-&gt;question()</code>, and <code class=" language-markup">$this-&gt;error()</code>) allow you to pass any string to the user, as a notification:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">'Finished syncing data'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Check out all the colors:</p>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-output-colors.png" alt="All the output colors"></p>
+<h2 id="advanced-input">Advanced input <a class="anchor" href="#advanced-input" title="Advanced input">#</a></h2>
+<p>What if you want to write a script that allows you to have various 
+stages of information retrieval from the user? Or conditional 
+information retrieval depending on previous responses, or depending on 
+part of the operations of the command?</p>
+<h3 id="this--gt-ask"><code class=" language-markup">$this-&gt;ask()</code> <a class="anchor" href="#this--gt-ask" title="$this-&gt;ask()">#</a></h3>
+<p>Throw a question out to the user and get their response:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">ask<span class="token punctuation">(</span></span><span class="token string">'What is your name?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">"Hello, $name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-ask.gif" alt="Demonstration of this-&gt;ask"></p>
+<h3 id="this--gt-secret"><code class=" language-markup">$this-&gt;secret()</code> <a class="anchor" href="#this--gt-secret" title="$this-&gt;secret()">#</a></h3>
+<p>Secret is the same as ask, but with hidden typing:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$password</span> <span class="token operator">=</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">secret<span class="token punctuation">(</span></span><span class="token string">'What is your password?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">"This is really secure. Your password is $password"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-secret.gif" alt="Demonstration of this-&gt;secret"></p>
+<h3 id="this--gt-confirm"><code class=" language-markup">$this-&gt;confirm()</code> <a class="anchor" href="#this--gt-confirm" title="$this-&gt;confirm()">#</a></h3>
+<p>What if you just need a yes/no?</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">confirm<span class="token punctuation">(</span></span><span class="token string">'Do you want a present?'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">"I'll never give you up."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-confirm.gif" alt="Demonstration of this-&gt;confirm"></p>
+<h3 id="this--gt-anticipate-and-this--gt-choice"><code class=" language-markup">$this-&gt;anticipate()</code> and <code class=" language-markup">$this-&gt;choice()</code> <a class="anchor" href="#this--gt-anticipate-and-this--gt-choice" title="$this-&gt;anticipate() and $this-&gt;choice()">#</a></h3>
+<p>What if you need custom choices? The Anticipate method allows you to 
+provide autocompletion (but leaves the response free to be whatever the 
+user wants), and the Choice method forces a choice between provided 
+options.</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">anticipate<span class="token punctuation">(</span></span>
+        <span class="token string">'What is your name?'</span><span class="token punctuation">,</span> 
+        <span class="token punctuation">[</span><span class="token string">'Jim'</span><span class="token punctuation">,</span> <span class="token string">'Conchita'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">"Your name is $name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$source</span> <span class="token operator">=</span> <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">choice<span class="token punctuation">(</span></span>
+        <span class="token string">'Which source would you like to use?'</span><span class="token punctuation">,</span> 
+        <span class="token punctuation">[</span><span class="token string">'master'</span><span class="token punctuation">,</span> <span class="token string">'develop'</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">info<span class="token punctuation">(</span></span><span class="token string">"Source chosen is $source"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>And the result:</p>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-choice-anticipate.gif" alt="Demonstration of anticipate and choice"></p>
+<h2 id="advanced-output">Advanced output <a class="anchor" href="#advanced-output" title="Advanced output">#</a></h2>
+<p>Laravel 5.1 introduces two new advanced output forms:
+table and progress bar.</p>
+<h3 id="this--gt-table"><code class=" language-markup">$this-&gt;table()</code> <a class="anchor" href="#this--gt-table" title="$this-&gt;table()">#</a></h3>
+<p>The table method accepts two parameters: headers and data.</p>
+<p>So, let's start with some hand-crafted goodness:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$headers</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">,</span> <span class="token string">'Awesomeness Level'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span>
+            <span class="token string">'name'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Jim'</span><span class="token punctuation">,</span>
+            <span class="token string">'awesomeness_level'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Meh'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span>
+            <span class="token string">'name'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Conchita'</span><span class="token punctuation">,</span>
+            <span class="token string">'awesomeness_level'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Fabulous'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/* Note: the following would work as well:
+    $data = [
+        ['Jim', 'Meh'],
+        ['Conchita', 'Fabulous']
+    ];
+    */</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">table<span class="token punctuation">(</span></span><span class="token variable">$headers</span><span class="token punctuation">,</span> <span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Here's the output:</p>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-table.png" alt="Demonstration of the table"></p>
+<p>And as you can see in the docs, this is a great tool for easily exporting data with Eloquent:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$headers</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">,</span> <span class="token string">'Email'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token variable">$users</span> <span class="token operator">=</span> <span class="token scope">App<span class="token punctuation">\</span>User<span class="token punctuation">::</span></span><span class="token function">all<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'email'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">toArray<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">table<span class="token punctuation">(</span></span><span class="token variable">$headers</span><span class="token punctuation">,</span> <span class="token variable">$users</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>This is built on the <a href="http://symfony.com/doc/current/components/console/helpers/tablehelper.html">Symfony Table Helper</a>.</p>
+<h3 id="progress-bar">Progress bar <a class="anchor" href="#progress-bar" title="Progress bar">#</a></h3>
+<p>It might seem like magic, but outputting progress bars are actually really simple using the Symfony Progress Bar Component:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">handle<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressStart<span class="token punctuation">(</span></span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token variable">$i</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token variable">$i</span> <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token variable">$i</span><span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">sleep<span class="token punctuation">(</span></span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressAdvance<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressFinish<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>This yields this beauty:</p>
+<p><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/artisan-progress.gif" alt="Demonstration of the progress bar"></p>
+<p>Let's break it down. First, we notify the progress bar how many "units" we'll be working through:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressStart<span class="token punctuation">(</span></span><span class="token variable">$numUnits</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Then, every time we process a unit, we advance the progress bar by one:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressAdvance<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Finally, we mark it as complete:</p>
+<pre class=" language-php"><code data-language="language-php" class=" language-php"><span class="token this">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">output</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">progressFinish<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Note that this syntax is a wrapper around the <a href="http://symfony.com/doc/2.7/components/console/helpers/progressbar.html">Symfony Progress Bar component</a>. You can take a look there for more information about how it functions.</p>
+<h2 id="conclado">Conclado <a class="anchor" href="#conclado" title="Conclado">#</a></h2>
+<p>That's it. You're now a professional Artisan input/output coordinator. Put that on your resumé/CV.</p>
+
+        <hr>
+
+        <div class="row" style="font-style: italic">
+            <div class="share-buttons col-md-6">
+                Share:
+                <!-- Facebook -->
+                <a href="http://www.facebook.com/sharer.php?u=https://mattstauffer.co/blog/advanced-input-output-with-artisan-commands-tables-and-progress-bars-in-laravel-5.1" target="_blank"><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/share-facebook.png" alt="Facebook"></a>
+
+                <!-- Twitter -->
+                <a href="http://twitter.com/share?url=https://mattstauffer.co/blog/advanced-input-output-with-artisan-commands-tables-and-progress-bars-in-laravel-5.1&amp;text=Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1" target="_blank"><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/share-twitter.png" alt="Twitter"></a>
+
+                <!-- LinkedIn -->
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://mattstauffer.co/blog/advanced-input-output-with-artisan-commands-tables-and-progress-bars-in-laravel-5.1" target="_blank"><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/share-linkedin.png" alt="LinkedIn"></a>
+            </div>
+            <div class="col-md-6">
+                <p>Comments? I'm <a href="http://twitter.com/stauffermatt">@stauffermatt</a> on Twitter</p>
+            </div>
+        </div>
+
+                <hr>
+        <p>Tags:
+                                            <a href="https://mattstauffer.co/tags/laravel">laravel</a>
+                            |                <a href="https://mattstauffer.co/tags/laravel%205.1">laravel 5.1</a>
+                            |                <a href="https://mattstauffer.co/tags/artisan">artisan</a>
+                            |                <a href="https://mattstauffer.co/tags/console">console</a>
+                    </p>
+        	</article>
+</div>
+								<div class="col-lg-3 col-lg-push-1 col-md-2 right-rail">
+					<div class="rail-bio">
+						<img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/mattstauffer-headshot.jfif" alt="Matt Stauffer headshot" class="rail-bio__headshot">
+						<p>Hi, I'm <strong>Matt Stauffer</strong>.</p>
+						<p>I'm partner &amp; technical director at <a href="https://tighten.co/?utm_source=mattstauffer.co&amp;utm_medium=rail-bio">Tighten Co.</a></p>
+                        <p>You can find me on Twitter at <a href="http://twitter.com/stauffermatt">@stauffermatt</a></p>
+                        <p style="margin-top: 1.5em;"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" style="position: static; visibility: visible; width: 231px; height: 20px;" title="Twitter Follow Button" src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/follow_button.htm" data-screen-name="stauffermatt" frameborder="0"></iframe>
+                        <script src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/analytics.js"></script><script id="twitter-wjs" src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+					</div>
+
+                    <hr>
+
+                    <div class="rail-book">
+                        <p><strong>Like what you're reading?</strong></p>
+                        <p>I wrote an entire 450+ page book for O'Reilly: <a href="https://laravelupandrunning.com/">Laravel: Up and Running</a>.</p>
+                        <p>You can <a href="https://laravelupandrunning.com/">order the eBook or print book today</a>.</p>
+                        <a href="https://laravelupandrunning.com/"><img src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/laravel-up-and-running-matt-stauffer.png" class="rail-book__image"></a>
+                    </div>
+                    <hr>
+
+                    <div class="rail-email-signup">
+                        <p style="font-weight: bold;">Subscribe to my newsletter for more content like this <em>and</em> special newsletter-only posts:</p>
+                        <form target="_blank" action="https://www.mattstauffer.io/landing_pages/mattstauffer-co-newsletter/landing_page_leads" accept-charset="UTF-8" method="post" class="form-inline"><input name="utf8" value="✓" type="hidden">
+                            <label for="email" class="sr-only">Email</label>
+                            <input name="email" id="email" class="form-control" placeholder="Your Email..." required="required" type="email">
+                            <input name="commit" value="Sign me up!" class="btn btn-primary" type="submit">
+                        </form>
+                    </div>
+				</div>
+				            </div>
+
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p>
+				© 2017 Matt Stauffer &nbsp;•&nbsp; <a href="http://twitter.com/stauffermatt">@stauffermatt</a> &nbsp;•&nbsp; <a href="https://mattstauffer.co/blog/feed.atom">RSS</a> &nbsp;•&nbsp; Like what I write? Hire <a href="https://tighten.co/?utm_source=mattstauffer.co&amp;utm_medium=footer">Tighten</a> and we can work together
+                </p>
+        </div>
+        </footer>
+
+        <script src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/jquery.js"></script>
+        <script src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/bootstrap.js"></script>
+        <script src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/main.js"></script>
+        <script src="Advanced%20input%20&amp;%20output%20with%20Artisan%20commands,%20tables,%20&amp;%20progress%20bars%20in%20Laravel%205.1%20-%20Matt%20Stauffer%20on%20Laravel,%20PHP,%20Frontend%20development_files/prism.js"></script>
+                <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-40114814-1');ga('send','pageview');
+        </script>
+            
+
+<iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe></body></html>

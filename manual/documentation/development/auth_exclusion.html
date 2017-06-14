@@ -1,0 +1,33 @@
+<p>
+    En ocaciones, para un módulo en particular, a pesar de que se requiere que todo el módulo esté protegido contra usuarios no logueados en el sistema, puede que exista una ocación donde para una tura en particular necesitamos que no sea requerido un usuario logueado. Para este caso, existe en los módulos una manera de excluir ciertos métodos de este requerimiento de autorización.
+</p>
+<p>
+    Para poder excluir ciertos elementos de esta autorización, el módulo cuenta con una variable llamada <i>$authorization_exclusions</i> que puede ser manejada de la siguiente manera:
+</p>
+<p>
+    <code>
+        &nbsp;&nbsp;&nbsp;setAuthorizationExclusions(array $authorization_exclusions)
+    </code>
+    <br />
+    <code>
+        &nbsp;&nbsp;addAuthorizationExclusion(string $exclusion)
+    </code>
+</p>
+<p>
+    Estos métodos deberían de ser llamados en la función <i>start()</i> del módulo, justo luego de configurar el requerimiento de usuario. Estos añadidos no diferencian entre los tipos de llamadas GET, POST, PUT o DELETE. Es decir, que van a excluirse tanto las llamadas <i>get_metodo()</i> como <i>post_metodo</i>.
+</p>
+<p>
+    <code>
+         public function start()<br />
+            {<br />
+                &nbsp;&nbsp;&nbsp;$this -> setRequireUser( $this -> require_user );<br />
+                &nbsp;&nbsp;&nbsp;/**<br />
+                &nbsp;&nbsp;&nbsp; * We want to exclude methods from the user requirement. We can do this adding the method name to the exclusion list<br />
+                &nbsp;&nbsp;&nbsp; */<br />
+                &nbsp;&nbsp;&nbsp; $this -> addAuthorizationExclusion( 'metodo' );<br />
+            }<br />
+    </code>
+</p>
+<p>
+    Así, el método podrá ser accedido sin necesidad de contar con un usuario logueado en el sistema.
+</p>
