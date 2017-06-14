@@ -1,3 +1,43 @@
+# LUMINUS
+
+Luminus is a CMS based in the [Laravel Framework](https://laravel.com/). Built in one 
+of the most powerful PHP frameworks out there with new flavors and toppings to make 
+it easier to make new sites. It has a clean and powerful new structure that make creating
+new modules a joy for the developers. It comes with a few example modules and a lot of documentation
+that make Luminus to work out of the box.
+
+Since it is build in Laravel, you can use any Laravel helper you want as well as the new classes
+Luminus adds to the code.
+
+This is a working progress. Please be careful what you do with this project.
+
+## Benefits of using Luminus 
+
+- Build in Laravel, a well know Framework with a lot of capabilities
+- Module system with with a lot of documentation 
+- Works out of the box
+- Using the [AdminLTE](https://adminlte.io/themes/AdminLTE/index2.html) beautiful template
+- Includes the most popular Javascript libraries divided in versions to allow easier management
+- Using composer for PHP libraries
+- A lot of example modules to see how the system works
+
+## Luminus License
+
+Luminus is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+## Contribute
+
+Right now we are not accepting direct contributions, but if you have an idea you can tell us; 
+or even better, if you built a module, you can send it to us to see if we can include it in
+the main Luminus installation.
+
+Do you want to contribute in another way? Maybe you can share this project with your friends, 
+or write something about it so other people will know about this project. 
+
+Any way you can contribute with the project, we will be eternally grateful.
+
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
