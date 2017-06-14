@@ -1,0 +1,2 @@
+* * * * * php /media/sf_Git/Luminus/artisan SendEmails
+* * * * * php /media/sf_Git/Luminus/artisan SendEmails2

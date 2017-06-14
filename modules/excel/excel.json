@@ -1,0 +1,7 @@
+{
+  "name":         "excel",
+  "label":        "Excel Import",
+  "description":  "A simple module that shows how to import Excel",
+  "version":      1.0,
+  "url":          "http://globalex.cr"
+}

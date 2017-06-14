@@ -1,0 +1,6 @@
+{
+  "name"    :   "gallery",
+  "label"   :   "Galería",
+  "description"   :   "Un módulo para demostrar como funciona la subida de archivos para Luminus",
+  "version" :   1.0
+}

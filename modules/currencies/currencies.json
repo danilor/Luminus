@@ -1,0 +1,15 @@
+{
+  "name"    :   "currencies",
+  "label"   :   "Currencies",
+  "description"   :   "Un módulo que actualiza constantemente los tipos de intercambio de las monedas a nivel internacional. Busca explicar como funciona el sistema de tareas y además el sistema de nuevas clases.",
+  "version" :   1.3,
+  "url": "http://globacorpweb.com",
+  "widgets"     : [
+    {
+      "name"        :   "showcurrentcrc",
+      "label"       :   "Mostrar tipo de Cambio USD-CRC",
+      "description" :   "Muestra el tipo de cambio y la última fecha de cuando se actualizó."
+    }
+
+  ]
+}

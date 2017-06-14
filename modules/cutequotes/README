@@ -1,0 +1,18 @@
+Detalles incluidos en este ejemplo de "cuotequotes"
+
+-Estructura básica del plugin
+-Extensión requerida del plugin y métodos abstractos
+-Estructura básica de las vistas
+-La definición del modulo.json
+-Creación de tablas
+-Creación de menú
+-Utilización del usuario ingresado en el sistema
+-Muestra de vista normal (dentro del sitio | framed)
+-Muestra de vista completa (fuera del sitio | unframed)
+-Resultado con AJAX/JSON (DModuleResponseJSON)
+-Resultado con redirección (DModuleResponseRedirect)
+-Almacenamiento de formularios (POST)
+-Uso de los "assets" del módulo
+-Creación de URLs
+-Manejo de errores (SystemNotFoundException)
+-Documentación general

@@ -1,0 +1,49 @@
+<p>
+    <i>Luminus</i> tiene integrado un pequeño sistema para envío de correos. Este sistema lo que hace es generar un registro de correo que es almacenado, y se pone en una lista de espera para ser enviado; con lo cual se evitan las largas esperas de carga para el sistema en el envío de correos.
+</p>
+<p>
+    Primero, y antes de enviar un correo, es necesario crear los recipientes que van a recibir el correo. Esto se realiza con la clase <i>EmailRecipient</i> del namespace <i><u>App\Classes\Email</u></i>
+</p>
+<p>
+    <code>
+        &nbsp;&nbsp;&nbsp;&nbsp;new EmailRecipient( $email , "" , EmailRecipient::TYPE_TO );
+    </code>
+</p>
+<p>
+    Los parámetros son:
+    <ul>
+        <li>correo</li>
+        <li>nombre (opcional - vacío)</li>
+        <li>tipo</li>
+    </ul>
+    El tipo es un valor numérico que se obtiene de las siguientes constantes:
+    <ul>
+        <li>EmailRecipient::TYPE_TO</li>
+        <li>EmailRecipient::TYPE_CC</li>
+        <li>EmailRecipient::TYPE_BCC</li>
+    </ul>
+</p>
+<p>
+    Una vez teniendo los receptores (que deben ser manejados como arreglo) se llama al método estático de la clase <i>Email</i> de la siguiente manera:
+</p>
+<p>
+    <code>
+        $recipients = [];<br />
+        foreach( $emails AS $email ){<br />
+        &nbsp;&nbsp;$recipients[] = new EmailRecipient( $email , "" , EmailRecipient::TYPE_TO ); //We create a single recipient<br />
+        }<br />
+        <br />
+        try{<br />
+        &nbsp;&nbsp;$email = \App\Classes\Email\Email::createEmailRegistry( "Mi título", "Hola" , "" , "" , $recipients , false , [] , 'basic'  );<br />
+        }catch (SystemError $err){<br />
+        &nbsp;&nbsp; // There is an error <br />
+        }<br />
+    </code>
+</p>
+<p>
+    El método de <i>createEmailRegistry</i> puede devolver una excepción en forma de <i>SystemError</i> en caso de no poder crear el correo; en caso contrario, devuelve un objeto <i>Email</i> con toda la información del registro de correo recién creado. Para más información del método de <i>createEmailRegistry</i> puede referirse a la documentación de clases.
+</p>
+<p>
+    Además, el sistema permite enviar documentos adjuntos para los correos. Para ello, en el parámetro antes de la plantilla se espera un arerglo con las rutas <strong>absolutas</strong> de los archivos que se desean enviar.
+    <sub>En el módulo de FAQs sale ejemplificado la manera idónea para enviar estos documentos adjuntos</sub>.
+</p>

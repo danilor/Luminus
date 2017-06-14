@@ -1,0 +1,10 @@
+{"name":"usefullcharts","label":"Gráficos Útiles","description":"Módulo que contiene una variedad de gráficos del sitema.","version":1.0,
+"widgets"     : [
+    {
+      "name"        :   "showvisitors",
+      "label"       :   "Mapa de Visitas",
+      "description" :   "Muestra el mapa de visitas"
+    }
+
+  ]
+}

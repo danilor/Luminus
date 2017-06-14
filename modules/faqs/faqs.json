@@ -1,0 +1,13 @@
+{
+  "name"          :   "faqs",
+  "label"         :   "FAQs",
+  "description"   :   "Módulo de preguntas y respuestas",
+  "version"       :   0.1,
+  "widgets"     : [
+    {
+      "name"        :   "randomfaq",
+      "label"       :   "FAQ Aleatorio",
+      "description" :   "Muestra un FAQ aleatorio del sistema"
+    }
+  ]
+}

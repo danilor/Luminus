@@ -1,0 +1,18 @@
+{
+  "name"        :   "tasks",
+  "label"       :   "Tareas",
+  "description" :   "Múdulo simple para mantener una lista de tareas por hacer.",
+  "version"     :   0.3,
+  "widgets"     : [
+    {
+      "name"        :   "showtasks",
+      "label"       :   "Últimas Tareas",
+      "description" :   "Widget hecho para el Dashboard del sitio que muestra las últimas 10 tareas (en orden de prioridad)."
+    },
+    {
+      "name"        :   "totaltasks",
+      "label"       :   "Total de Tareas",
+      "description" :   "Widget pequeño que muestra el total de tareas pendientes del usuario logueado."
+    }
+  ]
+}

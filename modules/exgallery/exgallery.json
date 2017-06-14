@@ -1,0 +1,19 @@
+{
+  "name": "exgallery",
+  "label": "Galería Externa",
+  "description": "Un módulo para demostrar como funciona el sistema de requerimientos previos de módulos para Luminus. Este módulo tendrá como requerimientos previos dos módulos adicionales: el de galería y el de citas.",
+  "version": 0.1,
+  "url": "http://globalex.cr",
+  "module_requirements": [
+    {
+      "name": "gallery",
+      "min": 0.1,
+      "max": 2
+    },
+    {
+      "name": "cutequotes",
+      "min": 0.1,
+      "max": 2
+    }
+  ]
+}

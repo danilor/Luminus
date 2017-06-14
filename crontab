@@ -1,0 +1,4 @@
+*/10 * * * * php artisan Module clean_files
+* * * * * php /mnt/hgfs/GC/Luminus/sys/artisan Module auto_tasks
+* * * * * php /media/sf_Git/Luminus//sys/sys/artisan SendEmails
+

@@ -1,0 +1,35 @@
+.badgeColorWhite{
+    color:white;
+}
+
+
+.ui-state-highlight { height: 10px; line-height: 1.2em; list-style: none; }
+
+ul#sortableFaqs li{
+    cursor:move;
+}
+
+#progress { position:relative; width:100%; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+#bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+#percent { position:absolute; display:inline-block; top:3px; left:48%; }
+
+
+.btn-file-special {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file-special input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}

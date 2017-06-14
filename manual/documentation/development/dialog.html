@@ -1,0 +1,156 @@
+<p>
+    GlobaSys tiene incluidas una serie de librerías JS que permiten el mostrar diálogos y mensajes rápidos desde Javascript sin necesidad de incluirlas en los módulos. Para ello, además de la inclusión de las librerías existen una serie de funciones y métodos predefinidos con los usos más comunes que se les pueden dar.
+</p>
+<hr />
+<div class="header">
+    <div class="pull-left">
+        <h2>NOTY</h2>
+    </div>
+
+    <div class="pull-right">
+        <a href="http://ned.im/noty/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Página web</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+            <i>NOTY</i> es una librería basada en <i>JQuery</i> que permite mostrar notificaciones rápidas y simples para los usuarios. Es configurable y está incluida en el sistema para solamente ser utilizada. Además, <i>GlobaSys</i> cuenta con algunas funcionse predeterminadas para el uso de esta librería que deberían cubrir los aspectos más básicosd e estas notificaciones.
+        </p>
+        <p>
+            La función principal es:
+        </p>
+        <p>
+            <code>
+                function noty_element( text , layout , type ){<br />
+                &nbsp;&nbsp;var n = noty({<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;text: text,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;layout: layout, // We are using the default layout<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;type: type,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;timeout: 3000,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;theme:'metroui'<br />
+                &nbsp;&nbsp;});<br />
+                }<br />
+            </code>
+        </p>
+        <p>
+            La cual permite configurar el texto, el tipo de esquema y la estructura que se queire utilizar. Pero además, existen una serie de funciones básicas que lo que hacen es llamar a la anterior con valores predefinidos. Estas funciones son:
+        </p>
+        <p>
+            <code>
+                function noty_alert( text )<br />
+                function noty_success( text )<br />
+                function noty_error( text )<br />
+                function noty_warning( text )<br />
+                function noty_information( text)<br />
+                function noty_notification( text )<br />
+            </code>
+        </p>
+        <p>
+            Estas funciones preestablecen muchos de los valores que la librería <i>NOTY</i> permite y facilita a los creados de los módulos su uso.
+        </p>
+        <h4>Ejemplos</h4>
+        <p>
+            <center>
+                <table width="40%" class="">
+                    <tbody>
+                        <tr>
+                            <td><center> <a class="btn btn-default btn-large" style="margin:20px;" href="javascript:noty_alert('noty_alert');">noty_alert</a></center> </td>
+                            <td><center> <a style="margin:20px;" class="btn btn-success" href="javascript:noty_success('noty_success');">noty_success</a></center> </td>
+                        </tr>
+                        <tr>
+                            <td><center> <a style="margin:20px;" class="btn btn-danger  btn-large" href="javascript:noty_error('noty_error');">noty_error</a></center> </td>
+                            <td><center> <a style="margin:20px;" class="btn btn-warning  btn-large" href="javascript:noty_warning('noty_warning');">noty_warning</a></center> </td>
+                        </tr>
+                        <tr>
+                            <td><center> <a style="margin:20px;" class="btn btn-info btn-large" href="javascript:noty_information('noty_information');">noty_information</a></center> </td>
+                            <td><center> <a style="margin:20px;" class="btn btn-primary btn-large" href="javascript:noty_notification('noty_notification');">noty_notification</a></center> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </center>
+        </p>
+        <p>Adicionalmente, si se envía sobre la URL los query string de <span>save_message</span> o <span>error_message</span> el sistema va a automáticamente generar un noty de <span>success</span> o <span>error</span> dependiendo de la situación.</p>
+        <p>
+            <center>
+                <code>
+                    service_details?id=1&save_message=Información+del+servicio+almacenada
+                </code>
+            </center>
+        </p>
+    </div>
+</div>
+<div class="header">
+    <div class="pull-left">
+        <h2>BOOTSTRAP DIALOG</h2>
+    </div>
+
+    <div class="pull-right">
+        <a href="https://nakupanda.github.io/bootstrap3-dialog/" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> Página web</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+            <i>BOOTSTRAP</i> es una librería basada en <i>JQuery</i> y <i>Bootstrap</i> que permite de manera más sencilla la creación de <i>Modal Windows</i> para su uso en la página web. Esta librería también está incluida en el sistema y puede ser utilizada en todos los módulos.
+        </p>
+        <p>
+            Por ejemplo:
+        </p>
+        <p>
+            <code>
+                BootstrapDialog.show({
+                &nbsp;&nbsp;&nbsp;message: 'Hi Apple!
+                });
+            </code>
+        </p>
+        <p>
+            Adicionalmente, el sistema cuenta con una función que utiliza esta librería para facilidad. Es una función de confirmación de diálogo con redirección que se llama de la siguiente manera:
+        </p>
+        <p>
+            <code>
+                showDialogConfirmRedirect( title , text , url , block )
+            </code>
+        </p>
+
+        <p>
+            <ul>
+                <li><strong>title</strong> el título de la ventana a mostrar</li>
+                <li><strong>text</strong> el texto de la ventana a mostrar</li>
+                <li><strong>url</strong> el url al cual redirigir en caso de confirmación</li>
+                <li><strong>block</strong> true|false indica si queremos bloquear la página con una animación de carga</li>
+            </ul>
+        </p>
+
+        <p>
+            Otra función adicional creada es la siguiente:
+        </p>
+        <p>
+            <code>
+                showDialogMessage( title, text )
+            </code>
+        </p>
+        <p>
+            Al igual que la anterior, es una función que utiliza el <i>Bootstrap Dialog</i> para mostrar un mensaje simple. Este mensaje no posee botones y solo consta de in <strong>título</strong> y un <strong>texto</strong>.
+        </p>
+
+        <h4>Ejemplos</h4>
+        <p>
+        <center>
+            <table width="40%" class="">
+                <tbody>
+                <tr>
+                    <td><center> <a class="btn btn-primary btn-large" style="margin:20px;" href="javascript:showDialogConfirmRedirect('Confirmación de la recarga de la página', '¿Está totalmente segudo de querer recargar esta página?','?f=dialog',true);">Recargar la página (showDialogConfirmRedirect)</a></center> </td>
+                </tr>
+                <tr>
+                    <td><center> <a class="btn btn-primary btn-large" style="margin:20px;" href="javascript:showDialogMessage('Este es un modal con mensaje', 'Magnífico modal con solamente un mensaje');">Mensaje simple (showDialogMessage)</a></center> </td>
+                </tr>
+                <tr>
+                    <td><center> <a class="btn btn-primary btn-large" style="margin:20px;" href="javascript:BootstrapDialog.show({title: 'Mensaje Simple',message: 'Hola Mundo! '});;">Mensaje Simple</a></center> </td>
+                </tr>
+                </tbody>
+            </table>
+        </center>
+        </p>
+    </div>
+</div>
