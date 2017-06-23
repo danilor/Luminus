@@ -1,6 +1,9 @@
-@extends("login.template")
+@extends("login.template_avatar")
 
 @section("content")
+
+    <div class="container">
+        <div class="login-container">
 
     @foreach ($errors->all() as $message)
                     <div class="errorblock">
@@ -26,5 +29,9 @@
     <div class="login-register">
         <a href="/login">{{ "Ingresar" }}</a>
      </div>
+
+
+        </div>
+    </div>
 {!! Form::close()  !!}
 @stop

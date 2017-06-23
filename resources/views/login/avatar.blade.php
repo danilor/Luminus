@@ -38,7 +38,7 @@
                     {!! Form::close()  !!}
                 </div>
                 <div class="login_footer">
-                    <p><a href="">{{ "¿Olvidó su contraseña?" }}</a></p>
+                    <p><a href="/forgot_password">{{ "¿Olvidó su contraseña?" }}</a></p>
                 </div>
             </div>
     </div>
