@@ -9,7 +9,8 @@ that make Luminus to work out of the box.
 Since it is build in Laravel, you can use any Laravel helper you want as well as the new classes
 Luminus adds to the code.
 
-This is a working progress. Please be careful what you do with this project.
+This is a working progress and its a one man army project, so please be careful what you do with this project.
+If you want/can contribute with this project you can do it without any problems.
 
 ## Benefits of using Luminus 
 
@@ -20,6 +21,20 @@ This is a working progress. Please be careful what you do with this project.
 - Includes the most popular Javascript libraries divided in versions to allow easier management
 - Using composer for PHP libraries
 - A lot of example modules to see how the system works
+- Easy to understand and code
+- Constant work and improvements
+
+## Features
+
+- Login system
+- Admin system
+- Modules system
+- User restrictions
+- Module widgets
+- Full profile
+- Nice design (AdminLTE)
+- Jquery and Bootstrap enabled
+- File management capabilities
 
 ## Luminus License
 
@@ -27,7 +42,7 @@ Luminus is licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 ## Contribute
 
-Right now we are not accepting direct contributions, but if you have an idea you can tell us; 
+Right now I am are not accepting direct contributions, but if you have an idea you can tell us; 
 or even better, if you built a module, you can send it to us to see if we can include it in
 the main Luminus installation.
 
@@ -36,7 +51,30 @@ or write something about it so other people will know about this project.
 
 Any way you can contribute with the project, we will be eternally grateful.
 
+## Technologies
 
+![Composer](https://www.dev-metal.com/wp-content/uploads/2013/12/composer-logo-1-100x100.jpg)
+![PHP](https://www.dev-metal.com/wp-content/uploads/2014/02/php-logo-1-100x100.jpg)
+![JQUERY](https://www.audero.it/blog/wp-content/uploads/2013/09/jQuery-logo.png)
+![BOOTSTRAP](http://www.nebula-marketing.co.uk/assets/images/bootstrap-logo.jpg)
+![FONT-AWESOME](https://www.blognone.com/sites/default/files/styles/thumbnail/public/news-thumbnails/logo_51.png)
+
+
+## Status
+
+This is a working progress, so please be patient, we are working as fast as we can on this one ;)
+
+This is the TODO list of the missing sections. As soon as we are adding them we are going to remove them from this list.
+
+- The forgot password actual function
+- The Administration access to create and modify existing users
+- More documentation
+- Upload the developer videos (Github does not allow me to upload files of more than 100mb)
+- Blog module (this is like, the basic)
+- Pages module
+
+
+# Laravel 5.4.*
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
