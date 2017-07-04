@@ -35,10 +35,6 @@ If you want/can contribute with this project you can do it without any problems.
 - Nice design (AdminLTE)
 - Jquery and Bootstrap enabled
 - File management capabilities
-<<<<<<< HEAD
-=======
-- Template system for main pages (Like Wordpress for example)
->>>>>>> 6b863e0bc133d0d99e6dad6e75359a257fff3c25
 
 ## Luminus License
 
