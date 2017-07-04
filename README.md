@@ -35,6 +35,10 @@ If you want/can contribute with this project you can do it without any problems.
 - Nice design (AdminLTE)
 - Jquery and Bootstrap enabled
 - File management capabilities
+<<<<<<< HEAD
+=======
+- Template system for main pages (Like Wordpress for example)
+>>>>>>> 6b863e0bc133d0d99e6dad6e75359a257fff3c25
 
 ## Luminus License
 
@@ -73,6 +77,45 @@ This is the TODO list of the missing sections. As soon as we are adding them we 
 - Blog module (this is like, the basic)
 - Pages module
 
+## Instalation
+
+Luminus inherits the same installation process as Laravel. So the steps to follow are really straight forward.
+
+NOTE: some of the commands described here may require root access "_sudo_", depending on the user permission.
+
+- Git clone this repository
+
+```
+git clone https://github.com/danilor/Luminus.git
+```
+
+- Enter to the Luminus folder and execute the composer install
+
+```
+cd Luminus
+composer install
+```
+
+- Change the database access information in the .env file (since it is not being added to the repository, there is an .env.example file that you must copy).
+ 
+ ```
+    DB_CONNECTION=mysql
+    DB_HOST=LOCALHOST
+    DB_PORT=3306
+    DB_DATABASE=luminus
+    DB_USERNAME=root
+    DB_PASSWORD=123456
+ ```
+
+- Execute the migration and the seed (we are adding the refresh command in case the database already exists)
+
+```
+php artisan migrate:refresh --seed
+```
+
+- Change your login information inside the database/seeds folder (The user creation file).
+
+- Target the Apache directory (or any other web server) to the public folder inside the Luminus project and thats it! 
 
 # Laravel 5.4.*
 

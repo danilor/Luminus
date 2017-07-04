@@ -171,10 +171,8 @@ class LoginController
      */
     public function getUsernameAvatar() : Response
     {
-
             $h = 200;
             $w = 200;
-
         /**
          * I want to read the H and W values from the query string, so to avoid copying the same "IF" twice, I made it dynamic.
          */

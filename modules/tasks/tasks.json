@@ -2,7 +2,7 @@
   "name"        :   "tasks",
   "label"       :   "Tareas",
   "description" :   "Múdulo simple para mantener una lista de tareas por hacer.",
-  "version"     :   0.3,
+  "version"     :   0.5,
   "widgets"     : [
     {
       "name"        :   "showtasks",
