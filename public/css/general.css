@@ -80,4 +80,6 @@ ADDED BY DANILO TO ADD THE IMAGE PREVIEW ADD ON
 
 #img-upload{
     width: 80%;
-}
+}.error{
+    color:red;
+ }
