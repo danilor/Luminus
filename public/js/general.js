@@ -16,11 +16,19 @@ $( document ).ready(function( e ){
     }
 
     if( typeof getUrlVars()["error_message"] !== "undefined" &&  getUrlVars()["error_message"] !== "" ){
-        noty_success( decodeURI(getUrlVars()["error_message"]).replaceAll('+',' ') );
+        noty_error( decodeURI(getUrlVars()["error_message"]).replaceAll('+',' ') );
     }
 
+    addValidationToForm();
 
 });
+
+/**
+ * This method adds a validation to all forms that have the required class
+ */
+function addValidationToForm(){
+    $(".require_validation").validate();
+}
 
 String.prototype.replaceAll = function(target, replacement) {
     return this.split(target).join(replacement);
@@ -62,7 +70,7 @@ function setUpDatatable( ){
     $( ".datatable" ).DataTable({
         "language": {
             "lengthMenu"        :   "Mostrar _MENU_ por página",
-            "zeroRecords"       :   "No se encontró nada",
+            "zeroRecords"       :   "Sin registros disponibles para mostrar",
             "info"              :   "Página _PAGE_ de _PAGES_",
             "infoEmpty"         :   "Sin registros disponibles",
             "infoFiltered"      :   "(llenado con _MAX_ registros totales)",
@@ -81,7 +89,7 @@ function setUpDatatable( ){
     $( ".datatable_onlysearch" ).dataTable({
         "language": {
             "lengthMenu"        :   "Mostrar _MENU_ por página",
-            "zeroRecords"       :   "No se encontró nada",
+            "zeroRecords"       :   "Sin registros disponibles para mostrar",
             "info"              :   "Página _PAGE_ de _PAGES_",
             "infoEmpty"         :   "Sin registros disponibles",
             "infoFiltered"      :   "(llenado con _MAX_ registros totales)",
