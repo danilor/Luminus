@@ -113,6 +113,10 @@ php artisan migrate:refresh --seed
 
 - Target the Apache directory (or any other web server) to the public folder inside the Luminus project and thats it! 
 
+## Video Tutorials (Spanish version)
+
+[![Creación de Módulo para Luminus](https://img.youtube.com/vi/oWMjKB0OqEE/0.jpg)](https://www.youtube.com/watch?v=oWMjKB0OqEE&feature=youtu.be)
+
 # Laravel 5.4.*
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
