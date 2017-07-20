@@ -75,6 +75,7 @@ function setUpDatatable( ){
             "infoEmpty"         :   "Sin registros disponibles",
             "infoFiltered"      :   "(llenado con _MAX_ registros totales)",
             "search"            :   "Buscar",
+            "scrollX"           : true,
             "paginate": {
                 "first":      "Inicial",
                 "last":       "Último",
@@ -94,6 +95,7 @@ function setUpDatatable( ){
             "infoEmpty"         :   "Sin registros disponibles",
             "infoFiltered"      :   "(llenado con _MAX_ registros totales)",
             "search"            :   "Buscar",
+            "scrollX"           : true,
             "paginate": {
                 "first":      "Inicial",
                 "last":       "Último",
