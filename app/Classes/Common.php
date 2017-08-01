@@ -319,5 +319,33 @@ class Common{
     {
         return number_format( $number , $decimals, $decimal_point , $thousands );
     }
+    
+    
+    	/**
+	 * This method will return an array of available hours
+	 * @return array
+	 */
+    public static function hoursSelect( $start = 0 , $end = 12 ) : array
+    {
+		$response = [];
+		for( $i = $start ; $i <= $end ; $i++ ){
+			$response[ (int)$i ] = str_pad($i,2,"0",STR_PAD_LEFT);;
+		}
+		return $response;
+    }
+
+	/**
+	 * This method will return an array of available hours
+	 * @return array
+	 */
+	public static function minutesSelect( $start = 0 , $end = 45 , $step = 15 ) : array
+	{
+		$response = [];
+		for( $i = $start ; $i <= $end ; $i += $step  ){
+			$response[ (int)$i ] = str_pad($i,2,"0",STR_PAD_LEFT);;
+		}
+		return $response;
+	}
+
 
 }
