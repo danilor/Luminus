@@ -173,6 +173,7 @@ function showDialogConfirmRedirect( title , text , url , block ){
             btnCancelLabel: 'NO / CANCELAR', // <-- Default value is 'Cancel',
             btnOKLabel: 'SI / CONFIRMAR', // <-- Default value is 'OK',
             btnOKClass: 'btn-success', // <-- If you didn't specify it, dialog type will be used,
+            nl2br: false,
             callback: function(result) {
                 // result will be true if button was click, while it will be false if users close the dialog directly.
                 if(result) {
@@ -199,7 +200,8 @@ function showDialogMessage( title , text ){
         type: BootstrapDialog.TYPE_PRIMARY, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
         closable: true, // <-- Default value is false
         draggable: true, // <-- Default value is false
-        closeByBackdrop: false // Don't close it clicking outside the modal
+        closeByBackdrop: false, // Don't close it clicking outside the modal
+        nl2br: false
     });
 }
 
